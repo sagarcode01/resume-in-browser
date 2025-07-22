@@ -10,49 +10,49 @@ interface HarvardTemplateProps {
 export const HarvardTemplate = React.forwardRef<HTMLDivElement, HarvardTemplateProps>(
     ({ data }, ref) => {
         return (
-            <div ref={ref} className="max-w-4xl mx-auto bg-white p-8 shadow-lg print:shadow-none print:p-0">
+            <div
+                ref={ref}
+                className="max-w-[850px] mx-auto bg-white p-10 print:p-10 font-serif text-black text-[15px] leading-[1.4] print:text-black print:bg-white"
+                style={{ fontFamily: 'Times New Roman, Times, serif' }}
+            >
                 {/* Header */}
-                <header className="border-b-2 border-gray-800 pb-4 mb-6">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                        {data.personalInfo.name}
-                    </h1>
-                    <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                <header className="text-center border-b-2 border-black pb-2 mb-4">
+                    <h1 className="text-3xl font-bold tracking-wide mb-1 uppercase">{data.personalInfo.name}</h1>
+                    <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-[15px] font-normal text-black">
                         <span>{data.personalInfo.email}</span>
                         <span>{data.personalInfo.phone}</span>
                         <span>{data.personalInfo.location}</span>
-                        {data.personalInfo.website && (
-                            <span>{data.personalInfo.website}</span>
-                        )}
-                        {data.personalInfo.linkedin && (
-                            <span>{data.personalInfo.linkedin}</span>
-                        )}
+                        {data.personalInfo.website && <span>{data.personalInfo.website}</span>}
+                        {data.personalInfo.linkedin && <span>{data.personalInfo.linkedin}</span>}
                     </div>
                 </header>
 
                 {/* Summary */}
                 {data.summary && (
-                    <section className="mb-6">
-                        <h2 className="text-lg font-semibold text-gray-800 mb-2 uppercase tracking-wider">
-                            Professional Summary
-                        </h2>
-                        <p className="text-gray-700 leading-relaxed">{data.summary}</p>
+                    <section className="mb-3">
+                        <h2 className="font-bold text-[1.1em] mb-1 tracking-wide border-b border-black/60 uppercase">Summary</h2>
+                        <p className="mt-1 text-[15px]">{data.summary}</p>
                     </section>
                 )}
 
                 {/* Work Experience */}
                 {data.workExperience.length > 0 && (
-                    <section className="mb-6">
-                        <h2 className="text-lg font-semibold text-gray-800 mb-3 uppercase tracking-wider">
-                            Professional Experience
-                        </h2>
+                    <section className="mb-3">
+                        <h2 className="font-bold text-[1.1em] mb-1 tracking-wide border-b border-black/60 uppercase">Professional Experience</h2>
                         {data.workExperience.map((job) => (
-                            <div key={job.id} className="mb-4">
-                                <div className="flex justify-between items-start mb-1">
-                                    <h3 className="font-semibold text-gray-900">{job.role}</h3>
-                                    <span className="text-sm text-gray-600">{job.duration}</span>
+                            <div key={job.id} className="mb-2">
+                                <div className="flex justify-between items-baseline">
+                                    <div>
+                                        <span className="font-semibold text-[1em]">{job.role}</span>
+                                        <span className="ml-2 italic text-[0.98em]">{job.company}</span>
+                                    </div>
+                                    <span className="text-[0.98em] whitespace-nowrap">{job.duration}</span>
                                 </div>
-                                <p className="text-gray-700 font-medium mb-2">{job.company}</p>
-                                <p className="text-gray-700 leading-relaxed">{job.description}</p>
+                                <ul className="list-disc ml-6 mt-1 text-[15px]">
+                                    {job.description.split('\n').map((line, idx) => (
+                                        <li key={idx}>{line}</li>
+                                    ))}
+                                </ul>
                             </div>
                         ))}
                     </section>
@@ -60,22 +60,18 @@ export const HarvardTemplate = React.forwardRef<HTMLDivElement, HarvardTemplateP
 
                 {/* Education */}
                 {data.education.length > 0 && (
-                    <section className="mb-6">
-                        <h2 className="text-lg font-semibold text-gray-800 mb-3 uppercase tracking-wider">
-                            Education
-                        </h2>
+                    <section className="mb-3">
+                        <h2 className="font-bold text-[1.1em] mb-1 tracking-wide border-b border-black/60 uppercase">Education</h2>
                         {data.education.map((edu) => (
-                            <div key={edu.id} className="mb-3">
-                                <div className="flex justify-between items-start">
+                            <div key={edu.id} className="mb-2">
+                                <div className="flex justify-between items-baseline">
                                     <div>
-                                        <h3 className="font-semibold text-gray-900">{edu.degree}</h3>
-                                        <p className="text-gray-700">{edu.institution}</p>
-                                        {edu.gpa && (
-                                            <p className="text-sm text-gray-600">GPA: {edu.gpa}</p>
-                                        )}
+                                        <span className="font-semibold text-[1em]">{edu.degree}</span>
+                                        <span className="ml-2 italic text-[0.98em]">{edu.institution}</span>
                                     </div>
-                                    <span className="text-sm text-gray-600">{edu.duration}</span>
+                                    <span className="text-[0.98em] whitespace-nowrap">{edu.duration}</span>
                                 </div>
+                                {edu.gpa && <div className="ml-1 text-[0.98em]">GPA: {edu.gpa}</div>}
                             </div>
                         ))}
                     </section>
@@ -83,18 +79,11 @@ export const HarvardTemplate = React.forwardRef<HTMLDivElement, HarvardTemplateP
 
                 {/* Skills */}
                 {data.skills.length > 0 && (
-                    <section className="mb-6">
-                        <h2 className="text-lg font-semibold text-gray-800 mb-3 uppercase tracking-wider">
-                            Technical Skills
-                        </h2>
-                        <div className="flex flex-wrap gap-2">
-                            {data.skills.map((skill, index) => (
-                                <span
-                                    key={index}
-                                    className="px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded"
-                                >
-                                    {skill}
-                                </span>
+                    <section className="mb-3">
+                        <h2 className="font-bold text-[1.1em] mb-1 tracking-wide border-b border-black/60 uppercase">Skills</h2>
+                        <div className="grid grid-cols-2 gap-x-8 gap-y-1 text-[15px]">
+                            {data.skills.map((skill, idx) => (
+                                <span key={idx} className="block">{skill}</span>
                             ))}
                         </div>
                     </section>
@@ -102,27 +91,20 @@ export const HarvardTemplate = React.forwardRef<HTMLDivElement, HarvardTemplateP
 
                 {/* Projects */}
                 {data.projects.length > 0 && (
-                    <section className="mb-6">
-                        <h2 className="text-lg font-semibold text-gray-800 mb-3 uppercase tracking-wider">
-                            Projects
-                        </h2>
+                    <section className="mb-3">
+                        <h2 className="font-bold text-[1.1em] mb-1 tracking-wide border-b border-black/60 uppercase">Projects</h2>
                         {data.projects.map((project) => (
-                            <div key={project.id} className="mb-4">
-                                <div className="flex justify-between items-start mb-1">
-                                    <h3 className="font-semibold text-gray-900">{project.name}</h3>
+                            <div key={project.id} className="mb-2">
+                                <div className="flex justify-between items-baseline">
+                                    <span className="font-semibold text-[1em]">{project.name}</span>
                                     {project.link && (
-                                        <span className="text-sm text-gray-600">{project.link}</span>
+                                        <span className="text-[0.98em] whitespace-nowrap">{project.link}</span>
                                     )}
                                 </div>
-                                <p className="text-gray-700 leading-relaxed mb-2">{project.description}</p>
-                                <div className="flex flex-wrap gap-2">
-                                    {project.technologies.map((tech, index) => (
-                                        <span
-                                            key={index}
-                                            className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded"
-                                        >
-                                            {tech}
-                                        </span>
+                                <div className="ml-1 text-[15px]">{project.description}</div>
+                                <div className="ml-1 flex flex-wrap gap-x-4 gap-y-1 mt-1 text-[0.98em]">
+                                    {project.technologies.map((tech, idx) => (
+                                        <span key={idx} className="inline-block">{tech}</span>
                                     ))}
                                 </div>
                             </div>
