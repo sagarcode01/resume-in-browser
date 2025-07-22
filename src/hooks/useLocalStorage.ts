@@ -27,19 +27,14 @@ export function useLocalStorage<T>(key: string, defaultValue: T) {
         }
     });
 
-    const setStoredValue = (value: T | ((val: T) => T)) => {
-        try {
-            // Allow value to be a function so we have the same API as useState
-            const valueToStore = value instanceof Function ? value(value) : value;
-            setValue(valueToStore);
-
-            // Save to localStorage only on client side
+    const setStoredValue = (val: T | ((prev: T) => T)) => {
+        setValue((prev) => {
+            const valueToStore = typeof val === 'function' ? (val as (prev: T) => T)(prev) : val;
             if (typeof window !== 'undefined') {
                 window.localStorage.setItem(key, JSON.stringify(valueToStore));
             }
-        } catch (error) {
-            console.error(`Error setting localStorage key "${key}":`, error);
-        }
+            return valueToStore;
+        });
     };
 
     return [value, setStoredValue] as const;
