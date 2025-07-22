@@ -363,7 +363,7 @@ export function ResumeEditor({ data, onChange }: ResumeEditorProps) {
                         <div className="text-center py-8 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
                             <Briefcase className="w-12 h-12 text-gray-400 mx-auto mb-3" />
                             <p className="text-gray-600">No work experience added yet</p>
-                            <p className="text-sm text-gray-500 mt-1">Click "Add Job" to get started</p>
+                            <p className="text-sm text-gray-500 mt-1">Click &quot;Add Job&quot; to get started</p>
                         </div>
                     )}
                     {data.workExperience.map((job, index) => (
@@ -440,7 +440,7 @@ export function ResumeEditor({ data, onChange }: ResumeEditorProps) {
                         <div className="text-center py-8 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
                             <GraduationCap className="w-12 h-12 text-gray-400 mx-auto mb-3" />
                             <p className="text-gray-600">No education added yet</p>
-                            <p className="text-sm text-gray-500 mt-1">Click "Add Education" to get started</p>
+                            <p className="text-sm text-gray-500 mt-1">Click &quot;Add Education&quot; to get started</p>
                         </div>
                     )}
                     {data.education.map((edu, index) => (
